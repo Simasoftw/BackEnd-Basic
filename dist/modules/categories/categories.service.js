@@ -79,18 +79,7 @@ let CategoriService = class CategoriService {
         }
     }
     async filterCategoriByCompany(body) {
-        var query = { companyId: new mongoose_1.mongo.ObjectId(body.companyId) };
-        var query2 = {};
-        if (body.textoABuscar) {
-            query2 = { $or: [
-                    { name: { $regex: body.textoABuscar, $options: "i" } },
-                    { code: { $regex: body.textoABuscar, $options: "i" } },
-                ] };
-        }
-        const response = await this._categoriesModel.aggregate([
-            { $match: query },
-            { $match: query2 }
-        ]);
+        const response = await this._categoriesModel.find({ companyId: new mongoose_1.mongo.ObjectId(body.companyId), status: "ACTIVE" });
         if (response.length) {
             return {
                 data: response,

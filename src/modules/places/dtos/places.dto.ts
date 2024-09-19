@@ -1,50 +1,56 @@
-import { Prop } from "@nestjs/mongoose";
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class PlaceDTO { 
 
-    @Prop({ required: false })
-    @IsNotEmpty()
-    Description: string;
+    @IsOptional() // Cambiado a opcional
+    description: string;
 
-    @Prop({ required: true })
-    @IsNotEmpty()
-    address: string;
-
-    @Prop({ required: true })
-    @IsNotEmpty()
-    longitude: string;
-
-    @Prop({ required: true })
-    @IsNotEmpty()
-    latitude: string;
-
-    @Prop({ required: true })
     @IsNotEmpty()
     name: string;
 
-    @Prop({ required: true })
+    @IsOptional() // Cambiado a opcional
+    images: string[]; // Cambiado a un array de cadenas
+
     @IsNotEmpty()
-    categoriesId: string;
+    longitud: number; // Cambiado de 'longitude' a 'longitud'
 
-    @Prop({ required: true })
     @IsNotEmpty()
-    type: string;
+    latitud: number; // Cambiado de 'latitude' a 'latitud'
 
-    @Prop({ required: false })
+    @IsOptional() // Cambiado a opcional
+    autor?: string; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    openingDate?: Date; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    dedication?: string; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    reference?: string; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    referencePhoto?: string; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    mainTypology?: string; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    secondaryTypology?: string; // Agregado como opcional
+
+    @IsOptional() // Cambiado a opcional
+    advocacy?: string; // Agregado como opcional
+
+
     @IsNotEmpty()
-    whatsApp: string;
-
-    @Prop({ required: false })
-    @IsNotEmpty()
-    phone: string;
-
-    @Prop({ required: false }) 
-    arrayImage: Array<any>;
-
-    @Prop({ required: false })
     status: string;
 
-    @Prop({ required: true })
+    @IsOptional() // Cambiado a opcional
+    address: string;
+
+    @IsOptional() // Cambiado a opcional
+    audio?: Blob; // Agregado como opcional
+
+    @IsNotEmpty()
     companyId: string;
 }

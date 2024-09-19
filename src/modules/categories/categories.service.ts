@@ -38,7 +38,6 @@ export class CategoriService {
         }
 
     }
- 
 
     async update(categoriesDTO: CategoriDTO, idCategori): Promise<IResponse> {
         const response =  await this._categoriesModel.findByIdAndUpdate(idCategori,
@@ -80,18 +79,7 @@ export class CategoriService {
 
     async filterCategoriByCompany(body: any): Promise<IResponse>{ 
 
-        var query = {companyId: new mongo.ObjectId(body.companyId)}
-        var query2 = {}
-        if (body.textoABuscar) {
-            query2 = { $or: [
-                { name: { $regex: body.textoABuscar, $options: "i" } },
-                { code: { $regex: body.textoABuscar, $options: "i" } },
-              ]}
-        } 
-        const response = await this._categoriesModel.aggregate([
-            { $match: query },
-            {  $match: query2 }
-        ]);
+        const response = await this._categoriesModel.find({companyId: new mongo.ObjectId(body.companyId), status: "ACTIVE"});
     
         if (response.length) {
             return {

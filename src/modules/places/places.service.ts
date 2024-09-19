@@ -32,7 +32,7 @@ export class PlaceService {
         } catch( error) {
             return {
                 data: [],
-                menssage: error,
+                message: error.message,
                 status: 500
             }
         }
@@ -79,30 +79,18 @@ export class PlaceService {
     } 
 
     async filterPlaceByCompany(body: any): Promise<IResponse>{ 
+        const response = await this._placesModel.find({ companyId: new mongo.ObjectId(body.companyId), status: 'ACTIVE' });
 
-        var query = {companyId: new mongo.ObjectId(body.companyId)}
-        var query2 = {}
-        if (body.textoABuscar) {
-            query2 = { $or: [
-                { name: { $regex: body.textoABuscar, $options: "i" } },
-                { code: { $regex: body.textoABuscar, $options: "i" } },
-              ]}
-        } 
-        const response = await this._placesModel.aggregate([
-            { $match: query },
-            {  $match: query2 }
-        ]); 
-    
         if (response.length) {
             return {
                 data: response,
-                menssage: "Lista de categorias",
+                menssage: "Lista de lugares",
                 status: 200
             }
         } else {
             return {
                 data: [],
-                menssage: "clientes no categorias",
+                menssage: "Lugares no encontrados",
                 status: 400
             }
         }  

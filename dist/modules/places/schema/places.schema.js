@@ -17,60 +17,80 @@ let Places = class Places {
 };
 exports.Places = Places;
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
-], Places.prototype, "Description", void 0);
-__decorate([
     (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], Places.prototype, "address", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], Places.prototype, "longitude", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], Places.prototype, "latitude", void 0);
+], Places.prototype, "description", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], Places.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'categories', required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], Places.prototype, "categoriesId", void 0);
+    (0, mongoose_1.Prop)({ type: [String], required: false }),
+    __metadata("design:type", Array)
+], Places.prototype, "images", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], Places.prototype, "type", void 0);
+    __metadata("design:type", Number)
+], Places.prototype, "longitud", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: true }),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], Places.prototype, "whatsApp", void 0);
+    __metadata("design:type", Number)
+], Places.prototype, "latitud", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
-], Places.prototype, "phone", void 0);
+], Places.prototype, "autor", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Array)
-], Places.prototype, "arrayImage", void 0);
+    __metadata("design:type", Date)
+], Places.prototype, "openingDate", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Places.prototype, "dedication", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Places.prototype, "reference", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Places.prototype, "referencePhoto", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Places.prototype, "mainTypology", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Places.prototype, "secondaryTypology", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Places.prototype, "advocacy", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'companis', required: true }),
     __metadata("design:type", String)
 ], Places.prototype, "companyId", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'categories', required: true }),
+    __metadata("design:type", String)
+], Places.prototype, "categoryId", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Places.prototype, "status", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Blob)
+], Places.prototype, "audio", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Places.prototype, "address", void 0);
 exports.Places = Places = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: {

@@ -26,8 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], Categories.prototype, "image", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Categories.prototype, "description", void 0);
 __decorate([

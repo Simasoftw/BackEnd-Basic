@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IsNotEmpty } from "class-validator";
 import mongoose from "mongoose";
+
 export type PlacesDocument = Places & Document;
 
 @Schema({
@@ -11,47 +12,62 @@ export type PlacesDocument = Places & Document;
 })
 export class Places {
 
-    @Prop({ required: false }) 
-    Description: string;
-
-    @Prop({ required: true })
-    @IsNotEmpty()
-    address: string;
-
-    @Prop({ required: true })
-    @IsNotEmpty()
-    longitude: string;
-
-    @Prop({ required: true })
-    @IsNotEmpty()
-    latitude: string;
+    @Prop({ required: true }) 
+    description: string;
 
     @Prop({ required: true })
     @IsNotEmpty()
     name: string;
 
-    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'categories',  required: true })
-    @IsNotEmpty()
-    categoriesId: string;
+    @Prop({ type: [String], required: false }) // Cambiamos a un array de cadenas
+    images: string[]; // Cambiamos a un array de cadenas para almacenar URLs de imágenes
 
     @Prop({ required: true })
     @IsNotEmpty()
-    type: string;
+    longitud: number; // Cambiado de 'longitude' a 'longitud'
 
-    @Prop({ required: false })
+    @Prop({ required: true })
     @IsNotEmpty()
-    whatsApp: string;
+    latitud: number; // Cambiado de 'latitude' a 'latitud'
 
     @Prop({ required: false }) 
-    phone: string;
+    autor?: string; // Agregado como opcional
 
     @Prop({ required: false }) 
-    arrayImage: Array<any>;
-     
-    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'companis' , required: true })
+    openingDate?: Date; // Agregado como opcional
+
+    @Prop({ required: false }) 
+    dedication?: string; // Agregado como opcional
+
+    @Prop({ required: false }) 
+    reference?: string; // Agregado como opcional
+
+    @Prop({ required: false }) 
+    referencePhoto?: string; // Agregado como opcional
+
+    @Prop({ required: false }) 
+    mainTypology?: string; // Agregado como opcional
+
+    @Prop({ required: false }) 
+    secondaryTypology?: string; // Agregado como opcional
+
+    @Prop({ required: false }) 
+    advocacy?: string; // Agregado como opcional
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companis', required: true })
     companyId: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'categories', required: true })
+    categoryId: string;
 
     @Prop({ required: true })
     status: string;
+
+    @Prop({ required: false }) 
+    audio: Blob; 
+
+    @Prop({ required: true })
+    address: string;
 }
+
 export const PlacesSchema = SchemaFactory.createForClass(Places);

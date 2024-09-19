@@ -38,7 +38,7 @@ let PlaceService = class PlaceService {
         catch (error) {
             return {
                 data: [],
-                menssage: error,
+                message: error.message,
                 status: 500
             };
         }
@@ -79,29 +79,18 @@ let PlaceService = class PlaceService {
         }
     }
     async filterPlaceByCompany(body) {
-        var query = { companyId: new mongoose_1.mongo.ObjectId(body.companyId) };
-        var query2 = {};
-        if (body.textoABuscar) {
-            query2 = { $or: [
-                    { name: { $regex: body.textoABuscar, $options: "i" } },
-                    { code: { $regex: body.textoABuscar, $options: "i" } },
-                ] };
-        }
-        const response = await this._placesModel.aggregate([
-            { $match: query },
-            { $match: query2 }
-        ]);
+        const response = await this._placesModel.find({ companyId: new mongoose_1.mongo.ObjectId(body.companyId), status: 'ACTIVE' });
         if (response.length) {
             return {
                 data: response,
-                menssage: "Lista de categorias",
+                menssage: "Lista de lugares",
                 status: 200
             };
         }
         else {
             return {
                 data: [],
-                menssage: "clientes no categorias",
+                menssage: "Lugares no encontrados",
                 status: 400
             };
         }

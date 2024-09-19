@@ -10,66 +10,76 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlaceDTO = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
 const class_validator_1 = require("class-validator");
 class PlaceDTO {
 }
 exports.PlaceDTO = PlaceDTO;
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], PlaceDTO.prototype, "Description", void 0);
+], PlaceDTO.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "address", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "longitude", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "latitude", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PlaceDTO.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "categoriesId", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "type", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "whatsApp", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], PlaceDTO.prototype, "phone", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
-], PlaceDTO.prototype, "arrayImage", void 0);
+], PlaceDTO.prototype, "images", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], PlaceDTO.prototype, "longitud", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], PlaceDTO.prototype, "latitud", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "autor", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Date)
+], PlaceDTO.prototype, "openingDate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "dedication", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "reference", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "referencePhoto", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "mainTypology", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "secondaryTypology", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "advocacy", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PlaceDTO.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PlaceDTO.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Blob)
+], PlaceDTO.prototype, "audio", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PlaceDTO.prototype, "companyId", void 0);
 //# sourceMappingURL=places.dto.js.map

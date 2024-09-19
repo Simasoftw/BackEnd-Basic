@@ -18,8 +18,7 @@ export class Categories {
     @Prop({ required: false }) 
     image: string;
 
-    @Prop({ required: true })
-    @IsNotEmpty()
+    @Prop({ required: false })
     description: string
 
     @Prop({ required: true })

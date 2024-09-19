@@ -1,14 +1,19 @@
 export declare class PlaceDTO {
-    Description: string;
-    address: string;
-    longitude: string;
-    latitude: string;
+    description: string;
     name: string;
-    categoriesId: string;
-    type: string;
-    whatsApp: string;
-    phone: string;
-    arrayImage: Array<any>;
+    images: string[];
+    longitud: number;
+    latitud: number;
+    autor?: string;
+    openingDate?: Date;
+    dedication?: string;
+    reference?: string;
+    referencePhoto?: string;
+    mainTypology?: string;
+    secondaryTypology?: string;
+    advocacy?: string;
     status: string;
+    address: string;
+    audio?: Blob;
     companyId: string;
 }
