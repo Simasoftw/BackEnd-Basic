@@ -21,15 +21,26 @@ export class Partners {
     @Prop({ required: true })
     @IsNotEmpty()
     description: string
-
-    @Prop({ required: true })
-    @IsNotEmpty()
-    code : string; 
  
     @Prop({ required: true })
     status: string;
 
-    @Prop({ required: true })
+    @Prop({ required: false })
+    whatsapp: number;
+
+    @Prop({ required: false })
+    phone: number;
+
+    @Prop({ required: false })
+    link: string;
+
+    @Prop({ required: false })
+    address: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'categories', required: true })
+    categoryId: string;
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companies', required: true })
     companyId: string;
 }
 export const PartnersSchema = SchemaFactory.createForClass(Partners);

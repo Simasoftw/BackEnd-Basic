@@ -18,6 +18,7 @@ const email_module_1 = require("./modules/email/email.module");
 const company_module_1 = require("./modules/company/company.module");
 const categories_module_1 = require("./modules/categories/categories.module");
 const places_module_1 = require("./modules/places/places.module");
+const partners_module_1 = require("./modules/partners/partners.module");
 const ENV = process.env.NODE_ENV;
 let AppModule = class AppModule {
 };
@@ -35,7 +36,8 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             places_module_1.PlaceModule,
             company_module_1.CompanyModule,
-            categories_module_1.CategoriModule
+            categories_module_1.CategoriModule,
+            partners_module_1.PartnerModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -26,7 +26,7 @@ export class CategoriController {
         return await this._categoriesService.delete(IdCategori);
     }
 
-    @UseGuards(AuthGuard)
+  
     @Post("/findbyCompany")
     async findByCompany (@Body() categoriDTO: CategoriDTO) { 
         return await this._categoriesService.filterCategoriByCompany(categoriDTO);

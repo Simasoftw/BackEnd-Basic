@@ -33,5 +33,6 @@ export declare class PartnerService {
     update(partnersDTO: PartnerDTO, idPartner: any): Promise<IResponse>;
     delete(IdPartner: string): Promise<IResponse>;
     filterPartnerByCompany(body: any): Promise<IResponse>;
+    getPartnerByCategory(categoryId: string): Promise<IResponse>;
     getPartnerById(idPartner: string): Promise<IResponse>;
 }

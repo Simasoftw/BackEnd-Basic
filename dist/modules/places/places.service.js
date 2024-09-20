@@ -79,19 +79,28 @@ let PlaceService = class PlaceService {
         }
     }
     async filterPlaceByCompany(body) {
-        const response = await this._placesModel.find({ companyId: new mongoose_1.mongo.ObjectId(body.companyId), status: 'ACTIVE' });
-        if (response.length) {
-            return {
-                data: response,
-                menssage: "Lista de lugares",
-                status: 200
-            };
+        try {
+            const response = await this._placesModel.find({ companyId: new mongoose_1.mongo.ObjectId(body.companyId), status: 'ACTIVE' });
+            if (response.length) {
+                return {
+                    data: response,
+                    menssage: "Lista de lugares",
+                    status: 200
+                };
+            }
+            else {
+                return {
+                    data: [],
+                    menssage: "Lugares no encontrados",
+                    status: 400
+                };
+            }
         }
-        else {
+        catch (error) {
             return {
                 data: [],
-                menssage: "Lugares no encontrados",
-                status: 400
+                menssage: error.message,
+                status: 500
             };
         }
     }

@@ -20,8 +20,8 @@ __decorate([
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Number)
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
 ], PartnerDTO.prototype, "image", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -31,13 +31,29 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
-], PartnerDTO.prototype, "code", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
 ], PartnerDTO.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "companyId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], PartnerDTO.prototype, "whatsapp", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], PartnerDTO.prototype, "phone", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], PartnerDTO.prototype, "link", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], PartnerDTO.prototype, "address", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], PartnerDTO.prototype, "categoryId", void 0);
 //# sourceMappingURL=partners.dto.js.map

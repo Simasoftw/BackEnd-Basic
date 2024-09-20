@@ -79,21 +79,30 @@ export class PlaceService {
     } 
 
     async filterPlaceByCompany(body: any): Promise<IResponse>{ 
-        const response = await this._placesModel.find({ companyId: new mongo.ObjectId(body.companyId), status: 'ACTIVE' });
+        try {
+            const response = await this._placesModel.find({ companyId: new mongo.ObjectId(body.companyId), status: 'ACTIVE' });
 
-        if (response.length) {
-            return {
-                data: response,
-                menssage: "Lista de lugares",
-                status: 200
-            }
-        } else {
+            if (response.length) {
+                return {
+                    data: response,
+                    menssage: "Lista de lugares",
+                    status: 200
+                }
+            } else {
+                return {
+                    data: [],
+                    menssage: "Lugares no encontrados",
+                    status: 400
+                }
+            }  
+        } catch (error) {
             return {
                 data: [],
-                menssage: "Lugares no encontrados",
-                status: 400
+                menssage: error.message,
+                status: 500
             }
-        }  
+        }
+        
     }
 
     async getPlaceById(idPlace: string): Promise<IResponse> {

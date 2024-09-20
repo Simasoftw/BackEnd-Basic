@@ -54,7 +54,7 @@ export class Places {
     @Prop({ required: false }) 
     advocacy?: string; // Agregado como opcional
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companis', required: true })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companies', required: true })
     companyId: string;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'categories', required: true })

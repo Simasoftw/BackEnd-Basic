@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PartnersSchema = exports.Partners = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const class_validator_1 = require("class-validator");
+const mongoose_2 = require("mongoose");
 let Partners = class Partners {
 };
 exports.Partners = Partners;
@@ -31,15 +32,30 @@ __decorate([
 ], Partners.prototype, "description", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], Partners.prototype, "code", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Partners.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], Partners.prototype, "whatsapp", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], Partners.prototype, "phone", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Partners.prototype, "link", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Partners.prototype, "address", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'categories', required: true }),
+    __metadata("design:type", String)
+], Partners.prototype, "categoryId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'companies', required: true }),
     __metadata("design:type", String)
 ], Partners.prototype, "companyId", void 0);
 exports.Partners = Partners = __decorate([

@@ -9,6 +9,7 @@ import { EmailsModule } from './modules/email/email.module';
 import { CompanyModule } from './modules/company/company.module'; 
 import { CategoriModule } from './modules/categories/categories.module'; 
 import { PlaceModule } from './modules/places/places.module'; 
+import { PartnerModule } from './modules/partners/partners.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -25,7 +26,8 @@ const ENV = process.env.NODE_ENV;
     AuthModule,
     PlaceModule,
     CompanyModule,
-    CategoriModule
+    CategoriModule,
+    PartnerModule
   ],
   controllers: [AppController],
   providers: [AppService],

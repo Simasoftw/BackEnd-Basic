@@ -8,4 +8,5 @@ export declare class PartnerController {
     deleteCompany(IdPartner: any): Promise<import("../../shared/utils/IResponse.util").IResponse>;
     findByCompany(categoriDTO: PartnerDTO): Promise<import("../../shared/utils/IResponse.util").IResponse>;
     findById(IdPartner: any): Promise<import("../../shared/utils/IResponse.util").IResponse>;
+    getPartnerByCategory(categoryId: any): Promise<import("../../shared/utils/IResponse.util").IResponse>;
 }

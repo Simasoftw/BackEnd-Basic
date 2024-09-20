@@ -34,4 +34,10 @@ export class PartnerController {
     async findById (@Param('IdPartner') IdPartner) { 
         return await this._partnersService.getPartnerById(IdPartner);
     }
+
+
+    @Get("/getPartnerByCategory/:categoryId")
+    async getPartnerByCategory (@Param('categoryId') categoryId) { 
+        return await this._partnersService.getPartnerByCategory(categoryId);
+    }
 }

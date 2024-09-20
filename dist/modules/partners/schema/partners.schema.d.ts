@@ -28,8 +28,12 @@ export declare class Partners {
     name: string;
     image: string;
     description: string;
-    code: string;
     status: string;
+    whatsapp: number;
+    phone: number;
+    link: string;
+    address: string;
+    categoryId: string;
     companyId: string;
 }
 export declare const PartnersSchema: mongoose.Schema<Partners, mongoose.Model<Partners, any, any, any, mongoose.Document<unknown, any, Partners> & Partners & {

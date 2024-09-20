@@ -30,7 +30,7 @@ let PartnerService = class PartnerService {
             if (response) {
                 return {
                     data: response,
-                    menssage: "Partnera creada con exito",
+                    menssage: "Aliado creado con exito",
                     status: 200
                 };
             }
@@ -79,23 +79,54 @@ let PartnerService = class PartnerService {
         }
     }
     async filterPartnerByCompany(body) {
-        const response = await this._partnersModel.find({ idUser: new mongoose_1.mongo.ObjectId(body.companyId), $or: [
-                { name: { $regex: body.textoABuscar, $options: "i" } },
-                { code: { $regex: body.textoABuscar, $options: "i" } },
-            ]
-        });
-        if (response.length) {
-            return {
-                data: response,
-                menssage: "Lista de categorias",
-                status: 200
-            };
+        try {
+            const response = await this._partnersModel.find({ companyId: new mongoose_1.mongo.ObjectId(body.companyId), status: "ACTIVE" });
+            if (response.length) {
+                return {
+                    data: response,
+                    menssage: "Lista de aliados",
+                    status: 200
+                };
+            }
+            else {
+                return {
+                    data: [],
+                    menssage: "Aliados no encontrados",
+                    status: 400
+                };
+            }
         }
-        else {
+        catch (error) {
             return {
                 data: [],
-                menssage: "clientes no categorias",
-                status: 400
+                menssage: error,
+                status: 500
+            };
+        }
+    }
+    async getPartnerByCategory(categoryId) {
+        try {
+            const response = await this._partnersModel.find({ categoryId: new mongoose_1.mongo.ObjectId(categoryId), status: "ACTIVE" });
+            if (response.length) {
+                return {
+                    data: response,
+                    menssage: "Lista de aliados por categoría",
+                    status: 200
+                };
+            }
+            else {
+                return {
+                    data: [],
+                    menssage: "Aliados no encontrados",
+                    status: 400
+                };
+            }
+        }
+        catch (error) {
+            return {
+                data: [],
+                menssage: error,
+                status: 500
             };
         }
     }
