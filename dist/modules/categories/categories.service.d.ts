@@ -28,10 +28,14 @@ import { Model } from "mongoose";
 import { IResponse } from 'src/shared/utils/IResponse.util';
 export declare class CategoriService {
     private _categoriesModel;
+    private s3;
+    private readonly bucketName;
     constructor(_categoriesModel: Model<CategoriesDocument>);
-    createCategori(categoriesDTO: CategoriDTO): Promise<any>;
+    createCategori(categoriesDTO: CategoriDTO, file: any): Promise<any>;
     update(categoriesDTO: CategoriDTO, idCategori: any): Promise<IResponse>;
     delete(IdCategori: string): Promise<IResponse>;
     filterCategoriByCompany(body: any): Promise<IResponse>;
     getCategoriById(idCategori: string): Promise<IResponse>;
+    private uploadImagesToS3;
+    deleteFolderFromS3(folderName: any): Promise<void>;
 }

@@ -1,4 +1,4 @@
-import { Prop } from "@nestjs/mongoose";
+import { Prop, raw } from "@nestjs/mongoose";
 import { IsEmail, IsNotEmpty } from "class-validator";
 
 export class CategoriDTO {
@@ -7,7 +7,7 @@ export class CategoriDTO {
     name: string;
 
     @Prop({ required: false })
-    image: number;
+    image: string;
 
     @Prop({ required: true })
     @IsNotEmpty()
@@ -21,4 +21,10 @@ export class CategoriDTO {
 
     @Prop({ required: true })
     companyId: string;
+
+    @Prop(raw({
+        key: { type: String },
+        url: { type: String }
+    }))
+    file: Record<string, any>;
 }

@@ -1,8 +1,9 @@
 export declare class CategoriDTO {
     name: string;
-    image: number;
+    image: string;
     description: string;
     code: string;
     status: string;
     companyId: string;
+    file: Record<string, any>;
 }

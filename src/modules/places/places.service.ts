@@ -177,7 +177,6 @@ export class PlaceService {
         let arrayImages: any[] = [];
         let audioUrl = "";
 
-        //Carga de audio 
         if (audio) {
             
             const audioKey = `places/${responseData._id}/audio/${audioS3.originalname}`;
@@ -213,7 +212,7 @@ export class PlaceService {
                 return imageUrl;
             });
         });
-    
+     
 
         arrayImages = await Promise.all(uploadPromises);
 

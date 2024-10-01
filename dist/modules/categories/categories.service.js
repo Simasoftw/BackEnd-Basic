@@ -18,16 +18,27 @@ const categories_schema_1 = require("./schema/categories.schema");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const status_constant_1 = require("../../shared/utils/status.constant");
+const client_s3_1 = require("@aws-sdk/client-s3");
 let CategoriService = class CategoriService {
     constructor(_categoriesModel) {
         this._categoriesModel = _categoriesModel;
+        this.s3 = new client_s3_1.S3Client({
+            region: process.env.AWS_REGION,
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            },
+        });
+        this.bucketName = process.env.AWS_S3_BUCKET_NAME;
     }
-    async createCategori(categoriesDTO) {
+    async createCategori(categoriesDTO, file) {
+        console.log("category ", categoriesDTO);
         try {
             categoriesDTO.status = status_constant_1.CONSTANTS_STATUS.ACTIVE;
             const response = await new this._categoriesModel(categoriesDTO);
             response.save();
             if (response) {
+                await this.uploadImagesToS3(file, response);
                 return {
                     data: response,
                     menssage: "Categoria creada con exito",
@@ -36,9 +47,10 @@ let CategoriService = class CategoriService {
             }
         }
         catch (error) {
+            console.log("error ", error);
             return {
                 data: [],
-                menssage: error,
+                menssage: error.menssage,
                 status: 500
             };
         }
@@ -64,6 +76,7 @@ let CategoriService = class CategoriService {
         const response = await this._categoriesModel.findByIdAndUpdate(IdCategori, { status: "INACTIVE" }, { new: true });
         ;
         if (response?._id) {
+            await this.deleteFolderFromS3(response?._id);
             return {
                 data: response,
                 menssage: "Categoria eliminado con exito",
@@ -117,6 +130,56 @@ let CategoriService = class CategoriService {
                 menssage: error,
                 status: 400
             };
+        }
+    }
+    async uploadImagesToS3(file, responseData) {
+        const audioKey = `category/${responseData._id}/${file.originalname}`;
+        console.log("c uploadImagesToS3 ", file);
+        const audioCommand = new client_s3_1.PutObjectCommand({
+            Bucket: this.bucketName,
+            Key: audioKey,
+            Body: file.buffer,
+            ContentType: file.mimetype,
+        });
+        const imagaUrl = await this.s3.send(audioCommand).then((response) => {
+            return `https://${this.bucketName}.s3.amazonaws.com/${audioKey}`;
+        });
+        await Promise.all(imagaUrl);
+        const response = await this._categoriesModel.updateOne({ _id: responseData._id }, { image: imagaUrl });
+        return response;
+    }
+    async deleteFolderFromS3(folderName) {
+        try {
+            const prefix = `category/${folderName}/`;
+            const listParams = {
+                Bucket: this.bucketName,
+                Prefix: prefix,
+            };
+            const listedObjects = await this.s3.send(new client_s3_1.ListObjectsV2Command(listParams));
+            if (listedObjects.Contents.length === 0) {
+                console.log(`No objects found in folder: ${folderName}`);
+                return;
+            }
+            const objectsToDelete = listedObjects.Contents.map((object) => ({
+                Key: object.Key,
+            }));
+            const deleteParams = {
+                Bucket: this.bucketName,
+                Delete: {
+                    Objects: objectsToDelete,
+                },
+            };
+            const deleteResponse = await this.s3.send(new client_s3_1.DeleteObjectsCommand(deleteParams));
+            if (listedObjects.Contents?.length === 0) {
+                const deleteDirectoryCommand = new client_s3_1.DeleteObjectCommand({
+                    Bucket: this.bucketName,
+                    Key: prefix,
+                });
+                await this.s3.send(deleteDirectoryCommand);
+            }
+        }
+        catch (error) {
+            console.error('Error deleting folder:', error);
         }
     }
 };

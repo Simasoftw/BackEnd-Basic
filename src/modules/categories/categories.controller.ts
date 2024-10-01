@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Param, Post, Delete, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, Put, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { CategoriService } from './categories.service';
 import { CategoriDTO } from './dtos/categories.dto';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+
 
 @Controller('categories')
 export class CategoriController {
@@ -10,9 +12,12 @@ export class CategoriController {
     ){}
 
     @UseGuards(AuthGuard)
+    @UseInterceptors(FileInterceptor('image'))
     @Post("/create")
-    async createCategori (@Body() categoriDTO: CategoriDTO) { 
-        return await this._categoriesService.createCategori(categoriDTO);
+    async createCategori(@Body() categoriDTO: CategoriDTO, @UploadedFile() file: Express.Multer.File) {
+
+        categoriDTO.file = file;
+        return await this._categoriesService.createCategori(categoriDTO, categoriDTO.file);
     }
 
     @UseGuards(AuthGuard)

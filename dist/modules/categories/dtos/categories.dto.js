@@ -21,7 +21,7 @@ __decorate([
 ], CategoriDTO.prototype, "name", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], CategoriDTO.prototype, "image", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -40,4 +40,11 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], CategoriDTO.prototype, "companyId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)((0, mongoose_1.raw)({
+        key: { type: String },
+        url: { type: String }
+    })),
+    __metadata("design:type", Object)
+], CategoriDTO.prototype, "file", void 0);
 //# sourceMappingURL=categories.dto.js.map

@@ -17,12 +17,14 @@ const common_1 = require("@nestjs/common");
 const categories_service_1 = require("./categories.service");
 const categories_dto_1 = require("./dtos/categories.dto");
 const auth_guard_1 = require("../../shared/guards/auth.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 let CategoriController = class CategoriController {
     constructor(_categoriesService) {
         this._categoriesService = _categoriesService;
     }
-    async createCategori(categoriDTO) {
-        return await this._categoriesService.createCategori(categoriDTO);
+    async createCategori(categoriDTO, file) {
+        categoriDTO.file = file;
+        return await this._categoriesService.createCategori(categoriDTO, categoriDTO.file);
     }
     async updateCompany(categoriDTO, IdCategori) {
         return await this._categoriesService.update(categoriDTO, IdCategori);
@@ -40,10 +42,12 @@ let CategoriController = class CategoriController {
 exports.CategoriController = CategoriController;
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image')),
     (0, common_1.Post)("/create"),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [categories_dto_1.CategoriDTO]),
+    __metadata("design:paramtypes", [categories_dto_1.CategoriDTO, Object]),
     __metadata("design:returntype", Promise)
 ], CategoriController.prototype, "createCategori", null);
 __decorate([
