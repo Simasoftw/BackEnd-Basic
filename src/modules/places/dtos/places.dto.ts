@@ -2,54 +2,54 @@ import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class PlaceDTO { 
 
-    @IsOptional() // Cambiado a opcional
+    @IsOptional()
     description: string;
 
     @IsNotEmpty()
     name: string;
 
-    @IsOptional() // Cambiado a opcional
-    images: string[]; // Cambiado a un array de cadenas
+    @IsOptional()
+    images: any[];
 
     @IsNotEmpty()
-    longitud: number; // Cambiado de 'longitude' a 'longitud'
+    longitud: number;
 
     @IsNotEmpty()
-    latitud: number; // Cambiado de 'latitude' a 'latitud'
+    latitud: number;
 
-    @IsOptional() // Cambiado a opcional
-    autor?: string; // Agregado como opcional
+    @IsOptional()
+    autor?: string;
 
-    @IsOptional() // Cambiado a opcional
-    openingDate?: Date; // Agregado como opcional
+    @IsOptional() 
+    openingDate?: Date;
 
-    @IsOptional() // Cambiado a opcional
-    dedication?: string; // Agregado como opcional
+    @IsOptional() 
+    dedication?: string;
 
-    @IsOptional() // Cambiado a opcional
-    reference?: string; // Agregado como opcional
+    @IsOptional()
+    reference?: string; 
 
-    @IsOptional() // Cambiado a opcional
-    referencePhoto?: string; // Agregado como opcional
+    @IsOptional() 
+    referencePhoto?: string;
 
-    @IsOptional() // Cambiado a opcional
-    mainTypology?: string; // Agregado como opcional
+    @IsOptional() 
+    mainTypology?: string; 
 
-    @IsOptional() // Cambiado a opcional
-    secondaryTypology?: string; // Agregado como opcional
+    @IsOptional() 
+    secondaryTypology?: string; 
 
-    @IsOptional() // Cambiado a opcional
-    advocacy?: string; // Agregado como opcional
+    @IsOptional() 
+    advocacy?: string; 
 
 
     @IsNotEmpty()
     status: string;
 
-    @IsOptional() // Cambiado a opcional
+    @IsOptional() 
     address: string;
 
-    @IsOptional() // Cambiado a opcional
-    audio?: Blob; // Agregado como opcional
+    @IsOptional() 
+    audio: Express.Multer.File;
 
     @IsNotEmpty()
     companyId: string;

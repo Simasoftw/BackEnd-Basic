@@ -35,4 +35,5 @@ export declare class PartnerService {
     filterPartnerByCompany(body: any): Promise<IResponse>;
     getPartnerByCategory(categoryId: string): Promise<IResponse>;
     getPartnerById(idPartner: string): Promise<IResponse>;
+    filterPartnersByCategory(body: any): Promise<IResponse>;
 }

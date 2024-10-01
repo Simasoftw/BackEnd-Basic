@@ -154,6 +154,28 @@ let PartnerService = class PartnerService {
             };
         }
     }
+    async filterPartnersByCategory(body) {
+        let textoABuscar = body.text;
+        let categoryId = body.categoryId;
+        const response = await this._partnersModel.find({ categoryId: categoryId, $and: [
+                { name: { $regex: textoABuscar, $options: "i" } },
+            ]
+        });
+        if (response.length) {
+            return {
+                data: response,
+                menssage: "Lista de clientes",
+                status: 200
+            };
+        }
+        else {
+            return {
+                data: [],
+                menssage: "clientes no encontrados",
+                status: 400
+            };
+        }
+    }
 };
 exports.PartnerService = PartnerService;
 exports.PartnerService = PartnerService = __decorate([

@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post, Delete, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, Put, UseGuards, UploadedFiles, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { PlaceService } from './places.service';
 import { PlaceDTO } from './dtos/places.dto';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('places')
 export class PlaceController {
@@ -10,9 +11,26 @@ export class PlaceController {
     ){}
 
     @UseGuards(AuthGuard)
-    @Post("/create")
-    async createPlace (@Body() categoriDTO: PlaceDTO) { 
-        return await this._placesService.createPlace(categoriDTO);
+    @Post('/create')
+    @UseInterceptors(FilesInterceptor('images'))
+    async createPlace(
+        @Body() placeDTO: PlaceDTO,
+        @UploadedFiles() files: Express.Multer.File[], 
+    ) {
+
+        placeDTO.images = files;
+
+        try {
+            const response = await this._placesService.createPlace(placeDTO);
+            return response;
+        } catch (error) {
+            console.error('Error al crear el lugar:', error.message);
+            return {
+                data: [],
+                message: 'Error al crear el lugar.',
+                status: 500,
+            };
+        }
     }
 
     @UseGuards(AuthGuard)

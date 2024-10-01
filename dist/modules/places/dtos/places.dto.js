@@ -76,7 +76,7 @@ __decorate([
 ], PlaceDTO.prototype, "address", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Blob)
+    __metadata("design:type", Object)
 ], PlaceDTO.prototype, "audio", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),

@@ -40,4 +40,10 @@ export class PartnerController {
     async getPartnerByCategory (@Param('categoryId') categoryId) { 
         return await this._partnersService.getPartnerByCategory(categoryId);
     }
+
+
+    @Post('/filterPartnersByCategory/') 
+    async filterCustomerByUser(@Body() data){
+        return await this._partnersService.filterPartnersByCategory(data) 
+    }
 }

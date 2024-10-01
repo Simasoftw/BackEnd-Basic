@@ -160,4 +160,30 @@ export class PartnerService {
             }
         }
     }
+
+
+    async filterPartnersByCategory(body: any) : Promise<IResponse>{
+        let textoABuscar = body.text;
+        let categoryId = body.categoryId;
+
+
+        const response = await this._partnersModel.find({categoryId: categoryId, $and: [
+            { name: { $regex: textoABuscar, $options: "i" } },
+          ]
+        });
+    
+        if (response.length) {
+            return {
+                data: response,
+                menssage: "Lista de clientes",
+                status: 200
+            }
+        } else {
+            return {
+                data: [],
+                menssage: "clientes no encontrados",
+                status: 400
+            }
+        }  
+    }
 }

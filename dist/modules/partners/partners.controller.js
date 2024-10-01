@@ -38,6 +38,9 @@ let PartnerController = class PartnerController {
     async getPartnerByCategory(categoryId) {
         return await this._partnersService.getPartnerByCategory(categoryId);
     }
+    async filterCustomerByUser(data) {
+        return await this._partnersService.filterPartnersByCategory(data);
+    }
 };
 exports.PartnerController = PartnerController;
 __decorate([
@@ -83,6 +86,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PartnerController.prototype, "getPartnerByCategory", null);
+__decorate([
+    (0, common_1.Post)('/filterPartnersByCategory/'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PartnerController.prototype, "filterCustomerByUser", null);
 exports.PartnerController = PartnerController = __decorate([
     (0, common_1.Controller)('partners'),
     __metadata("design:paramtypes", [partners_service_1.PartnerService])

@@ -9,4 +9,5 @@ export declare class PartnerController {
     findByCompany(categoriDTO: PartnerDTO): Promise<import("../../shared/utils/IResponse.util").IResponse>;
     findById(IdPartner: any): Promise<import("../../shared/utils/IResponse.util").IResponse>;
     getPartnerByCategory(categoryId: any): Promise<import("../../shared/utils/IResponse.util").IResponse>;
+    filterCustomerByUser(data: any): Promise<import("../../shared/utils/IResponse.util").IResponse>;
 }

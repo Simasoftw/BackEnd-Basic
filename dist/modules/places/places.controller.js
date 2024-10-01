@@ -17,12 +17,25 @@ const common_1 = require("@nestjs/common");
 const places_service_1 = require("./places.service");
 const places_dto_1 = require("./dtos/places.dto");
 const auth_guard_1 = require("../../shared/guards/auth.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 let PlaceController = class PlaceController {
     constructor(_placesService) {
         this._placesService = _placesService;
     }
-    async createPlace(categoriDTO) {
-        return await this._placesService.createPlace(categoriDTO);
+    async createPlace(placeDTO, files) {
+        placeDTO.images = files;
+        try {
+            const response = await this._placesService.createPlace(placeDTO);
+            return response;
+        }
+        catch (error) {
+            console.error('Error al crear el lugar:', error.message);
+            return {
+                data: [],
+                message: 'Error al crear el lugar.',
+                status: 500,
+            };
+        }
     }
     async updateCompany(categoriDTO, IdPlace) {
         return await this._placesService.update(categoriDTO, IdPlace);
@@ -40,10 +53,12 @@ let PlaceController = class PlaceController {
 exports.PlaceController = PlaceController;
 __decorate([
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
-    (0, common_1.Post)("/create"),
+    (0, common_1.Post)('/create'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images')),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [places_dto_1.PlaceDTO]),
+    __metadata("design:paramtypes", [places_dto_1.PlaceDTO, Array]),
     __metadata("design:returntype", Promise)
 ], PlaceController.prototype, "createPlace", null);
 __decorate([

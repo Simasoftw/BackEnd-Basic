@@ -20,7 +20,7 @@ export class Places {
     name: string;
 
     @Prop({ type: [String], required: false }) // Cambiamos a un array de cadenas
-    images: string[]; // Cambiamos a un array de cadenas para almacenar URLs de imágenes
+    imagesUrl: String[]; // Cambiamos a un array de cadenas para almacenar URLs de imágenes
 
     @Prop({ required: true })
     @IsNotEmpty()
@@ -33,17 +33,17 @@ export class Places {
     @Prop({ required: false }) 
     autor?: string; // Agregado como opcional
 
-    @Prop({ required: false }) 
-    openingDate?: Date; // Agregado como opcional
+    @Prop({required: false }) 
+    openingDate?: string; // Agregado como opcional
 
     @Prop({ required: false }) 
     dedication?: string; // Agregado como opcional
 
     @Prop({ required: false }) 
-    reference?: string; // Agregado como opcional
+    reference: string; // Agregado como opcional
 
     @Prop({ required: false }) 
-    referencePhoto?: string; // Agregado como opcional
+    referencePhoto: string; // Agregado como opcional
 
     @Prop({ required: false }) 
     mainTypology?: string; // Agregado como opcional
@@ -52,7 +52,7 @@ export class Places {
     secondaryTypology?: string; // Agregado como opcional
 
     @Prop({ required: false }) 
-    advocacy?: string; // Agregado como opcional
+    advocacy: string; // Agregado como opcional
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companies', required: true })
     companyId: string;
@@ -64,10 +64,21 @@ export class Places {
     status: string;
 
     @Prop({ required: false }) 
-    audio: Blob; 
+    audio: string; 
 
     @Prop({ required: true })
     address: string;
+
+    @Prop({
+        default: Date.now,
+        index: {
+            expireAfterSeconds: 259200,
+            partialFilterExpression: {
+                status: 'INACTIVE'
+            }
+        }
+    })
+    expire: Date;
 }
 
 export const PlacesSchema = SchemaFactory.createForClass(Places);

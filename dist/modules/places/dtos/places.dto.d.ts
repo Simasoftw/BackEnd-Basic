@@ -1,7 +1,8 @@
+/// <reference types="multer" />
 export declare class PlaceDTO {
     description: string;
     name: string;
-    images: string[];
+    images: any[];
     longitud: number;
     latitud: number;
     autor?: string;
@@ -14,6 +15,6 @@ export declare class PlaceDTO {
     advocacy?: string;
     status: string;
     address: string;
-    audio?: Blob;
+    audio: Express.Multer.File;
     companyId: string;
 }

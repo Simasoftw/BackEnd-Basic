@@ -27,22 +27,23 @@ export type PlacesDocument = Places & Document;
 export declare class Places {
     description: string;
     name: string;
-    images: string[];
+    imagesUrl: String[];
     longitud: number;
     latitud: number;
     autor?: string;
-    openingDate?: Date;
+    openingDate?: string;
     dedication?: string;
-    reference?: string;
-    referencePhoto?: string;
+    reference: string;
+    referencePhoto: string;
     mainTypology?: string;
     secondaryTypology?: string;
-    advocacy?: string;
+    advocacy: string;
     companyId: string;
     categoryId: string;
     status: string;
-    audio: Blob;
+    audio: string;
     address: string;
+    expire: Date;
 }
 export declare const PlacesSchema: mongoose.Schema<Places, mongoose.Model<Places, any, any, any, mongoose.Document<unknown, any, Places> & Places & {
     _id: mongoose.Types.ObjectId;
