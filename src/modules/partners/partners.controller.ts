@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PartnerService } from './partners.service';
 import { PartnerDTO } from './dtos/partners.dto';
+import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('partners')
 export class PartnerController {
@@ -9,25 +11,44 @@ export class PartnerController {
     ){}
 
 
-    @Post("/create")
-    async createPartner (@Body() categoriDTO: PartnerDTO) { 
-        return await this._partnersService.createPartner(categoriDTO);
+    @UseGuards(AuthGuard)
+    @Post('/create')
+    @UseInterceptors(FilesInterceptor('images'))
+    async createPlace(
+        @Body() partnerDTO: PartnerDTO,
+        @UploadedFiles() files: Express.Multer.File[], 
+    ) {
+
+        partnerDTO.images = files;
+
+        try {
+            const response = await this._partnersService.createPartner(partnerDTO);
+            return response;
+        } catch (error) {
+            console.error('Error al crear el lugar:', error.message);
+            return {
+                data: [],
+                message: 'Error al crear el lugar.',
+                status: 500,
+            };
+        }
     }
 
-    
+    @UseGuards(AuthGuard)
     @Post("/update/:IdPartner")
-    async updateCompany (@Body() categoriDTO: PartnerDTO,@Param('IdPartner') IdPartner) { 
-        return await this._partnersService.update(categoriDTO, IdPartner);
+    async updateCompany (@Body() partnerDTO: PartnerDTO,@Param('IdPartner') IdPartner) { 
+        return await this._partnersService.update(partnerDTO, IdPartner);
     }
 
+    @UseGuards(AuthGuard)
     @Post("/delete/:IdPartner")
     async deleteCompany (@Param('IdPartner') IdPartner) { 
         return await this._partnersService.delete(IdPartner);
     }
 
     @Post("/findbyCompany")
-    async findByCompany (@Body() categoriDTO: PartnerDTO) { 
-        return await this._partnersService.filterPartnerByCompany(categoriDTO);
+    async findByCompany (@Body() partnerDTO: PartnerDTO) { 
+        return await this._partnersService.filterPartnerByCompany(partnerDTO);
     }
 
     @Get("/findById/:IdPartner")

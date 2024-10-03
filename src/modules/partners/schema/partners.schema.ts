@@ -15,8 +15,16 @@ export class Partners {
     @IsNotEmpty()
     name: string;
 
-    @Prop({ required: false }) 
-    image: string;
+    @Prop({ required: false })
+    @IsNotEmpty()
+    longitud: number;
+
+    @Prop({ required: false })
+    @IsNotEmpty()
+    latitud: number;
+
+    @Prop({ type: [String], required: false })
+    imagesUrl: String[]; 
 
     @Prop({ required: true })
     @IsNotEmpty()
@@ -42,5 +50,16 @@ export class Partners {
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companies', required: true })
     companyId: string;
+
+    @Prop({
+        default: Date.now,
+        index: {
+            expireAfterSeconds: 259200,
+            partialFilterExpression: {
+                status: 'INACTIVE'
+            }
+        }
+    })
+    expire: Date;
 }
 export const PartnersSchema = SchemaFactory.createForClass(Partners);

@@ -9,4 +9,5 @@ export declare class PartnerDTO {
     link: string;
     address: string;
     categoryId: string;
+    images: any[];
 }

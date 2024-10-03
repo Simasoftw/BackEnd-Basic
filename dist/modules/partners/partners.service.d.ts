@@ -28,6 +28,8 @@ import { Model } from "mongoose";
 import { IResponse } from 'src/shared/utils/IResponse.util';
 export declare class PartnerService {
     private _partnersModel;
+    private s3;
+    private readonly bucketName;
     constructor(_partnersModel: Model<PartnersDocument>);
     createPartner(partnersDTO: PartnerDTO): Promise<any>;
     update(partnersDTO: PartnerDTO, idPartner: any): Promise<IResponse>;
@@ -36,4 +38,6 @@ export declare class PartnerService {
     getPartnerByCategory(categoryId: string): Promise<IResponse>;
     getPartnerById(idPartner: string): Promise<IResponse>;
     filterPartnersByCategory(body: any): Promise<IResponse>;
+    private uploadImagesToS3;
+    deleteFolderFromS3(folderName: any): Promise<void>;
 }

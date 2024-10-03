@@ -30,5 +30,16 @@ export class Categories {
 
     @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'companis', required: true })
     companyId: string;
+
+    @Prop({
+        default: Date.now,
+        index: {
+            expireAfterSeconds: 259200,
+            partialFilterExpression: {
+                status: 'INACTIVE'
+            }
+        }
+    })
+    expire: Date;
 }
 export const CategoriesSchema = SchemaFactory.createForClass(Categories);

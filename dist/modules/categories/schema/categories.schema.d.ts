@@ -31,6 +31,7 @@ export declare class Categories {
     code: string;
     status: string;
     companyId: string;
+    expire: Date;
 }
 export declare const CategoriesSchema: mongoose.Schema<Categories, mongoose.Model<Categories, any, any, any, mongoose.Document<unknown, any, Categories> & Categories & {
     _id: mongoose.Types.ObjectId;

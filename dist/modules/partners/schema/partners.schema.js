@@ -23,8 +23,18 @@ __decorate([
 ], Partners.prototype, "name", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
-], Partners.prototype, "image", void 0);
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], Partners.prototype, "longitud", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], Partners.prototype, "latitud", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [String], required: false }),
+    __metadata("design:type", Array)
+], Partners.prototype, "imagesUrl", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     (0, class_validator_1.IsNotEmpty)(),
@@ -58,6 +68,18 @@ __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'companies', required: true }),
     __metadata("design:type", String)
 ], Partners.prototype, "companyId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        default: Date.now,
+        index: {
+            expireAfterSeconds: 259200,
+            partialFilterExpression: {
+                status: 'INACTIVE'
+            }
+        }
+    }),
+    __metadata("design:type", Date)
+], Partners.prototype, "expire", void 0);
 exports.Partners = Partners = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: {

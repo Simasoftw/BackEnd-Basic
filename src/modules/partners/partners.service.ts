@@ -5,13 +5,33 @@ import { Model, mongo } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { CONSTANTS_STATUS } from 'src/shared/utils/status.constant';
 import { IResponse } from 'src/shared/utils/IResponse.util';
+import {
+    S3Client,
+    PutObjectCommand,
+    ListObjectsV2Command,
+    DeleteObjectCommand,
+    DeleteObjectsCommand,
+} from '@aws-sdk/client-s3';
 
 @Injectable()
 export class PartnerService {
+    private s3: S3Client;
+    private readonly bucketName: string;
 
     constructor(
         @InjectModel(Partners.name) private _partnersModel: Model<PartnersDocument>,
-    ){ }
+    ){ 
+        this.s3 = new S3Client({
+            region: process.env.AWS_REGION,
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            },
+        });
+
+        this.bucketName = process.env.AWS_S3_BUCKET_NAME;
+
+    }
 
     async createPartner(partnersDTO: PartnerDTO):Promise<any> {
 
@@ -22,6 +42,8 @@ export class PartnerService {
             response.save(); 
 
             if(response){
+                await this.uploadImagesToS3(partnersDTO.images, response);
+
                 return {
                     data: response,
                     menssage: "Aliado creado con exito",
@@ -30,9 +52,10 @@ export class PartnerService {
             }
 
         } catch( error) {
+            console.log("error ", error);
             return {
                 data: [],
-                menssage: error,
+                menssage: error.message,
                 status: 500
             }
         }
@@ -63,6 +86,7 @@ export class PartnerService {
         const response = await this._partnersModel.findByIdAndUpdate(IdPartner,
             {status: "INACTIVE"}, { new: true });;
         if (response?._id) {
+            await this.deleteFolderFromS3(response?._id);
             return {
                 data: response,
                 menssage: "Partnera eliminado con exito",
@@ -153,9 +177,10 @@ export class PartnerService {
             }
 
         } catch (error) {
+            console.log("error ", error);
             return {
                 data: [],
-                menssage: error,
+                menssage: error.message,
                 status: 400
             }
         }
@@ -185,5 +210,90 @@ export class PartnerService {
                 status: 400
             }
         }  
+    }
+
+    private async uploadImagesToS3(
+        files: any[],
+        responseData: any,
+    ): Promise<any[]> {
+    
+        console.log("file ", files);
+        let arrayImages: any[] = [];
+        if(files == null || files == undefined) {
+            return;
+        }
+
+        const uploadPromises = files.map((file) => {
+            const key = `partners/${responseData._id}/img/${file.originalname}`;
+    
+            const command = new PutObjectCommand({
+                Bucket: this.bucketName,
+                Key: key,
+                Body: file.buffer, 
+                ContentType: file.mimetype, 
+            });
+    
+            return this.s3.send(command).then((response) => {
+                const imageUrl = `https://${this.bucketName}.s3.amazonaws.com/${key}`;
+                arrayImages.push(imageUrl);
+                return imageUrl;
+            });
+        });
+     
+
+        arrayImages = await Promise.all(uploadPromises);
+
+        await this._partnersModel.updateOne(
+            { _id: responseData._id },
+            { imagesUrl: arrayImages },
+        );
+    
+        arrayImages = [...arrayImages];    
+        return arrayImages;
+    }
+
+    async deleteFolderFromS3(folderName) {
+        try {
+            const prefix = `partners/${folderName}/`;
+
+            const listParams = {
+                Bucket: this.bucketName,
+                Prefix: prefix,
+            };
+
+            const listedObjects = await this.s3.send(
+                new ListObjectsV2Command(listParams),
+            );
+
+            if (listedObjects.Contents.length === 0) {
+                console.log(`No objects found in folder: ${folderName}`);
+                return;
+            }
+
+            const objectsToDelete = listedObjects.Contents.map((object) => ({
+                Key: object.Key,
+            }));
+
+            const deleteParams = {
+                Bucket: this.bucketName,
+                Delete: {
+                    Objects: objectsToDelete,
+                },
+            };
+
+            const deleteResponse = await this.s3.send(
+                new DeleteObjectsCommand(deleteParams),
+            );
+
+            if (listedObjects.Contents?.length === 0) {
+                const deleteDirectoryCommand = new DeleteObjectCommand({
+                    Bucket: this.bucketName,
+                    Key: prefix,
+                });
+                await this.s3.send(deleteDirectoryCommand);
+            }
+        } catch (error) {
+            console.error('Error deleting folder:', error);
+        }
     }
 }

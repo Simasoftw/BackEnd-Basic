@@ -12,16 +12,21 @@ const mongoose_1 = require("@nestjs/mongoose");
 const partners_schema_1 = require("./schema/partners.schema");
 const partners_controller_1 = require("./partners.controller");
 const partners_service_1 = require("./partners.service");
+const auth_service_1 = require("../auth/auth.service");
+const users_schema_1 = require("../users/schema/users.schema");
 let PartnerModule = class PartnerModule {
 };
 exports.PartnerModule = PartnerModule;
 exports.PartnerModule = PartnerModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: partners_schema_1.Partners.name, schema: partners_schema_1.PartnersSchema }]),
+            mongoose_1.MongooseModule.forFeature([
+                { name: partners_schema_1.Partners.name, schema: partners_schema_1.PartnersSchema },
+                { name: users_schema_1.User.name, schema: users_schema_1.UserSchema }
+            ]),
         ],
         controllers: [partners_controller_1.PartnerController],
-        providers: [partners_service_1.PartnerService]
+        providers: [partners_service_1.PartnerService, auth_service_1.AuthService]
     })
 ], PartnerModule);
 //# sourceMappingURL=partners.module.js.map

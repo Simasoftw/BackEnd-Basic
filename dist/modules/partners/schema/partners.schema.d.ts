@@ -26,7 +26,9 @@ import mongoose from "mongoose";
 export type PartnersDocument = Partners & Document;
 export declare class Partners {
     name: string;
-    image: string;
+    longitud: number;
+    latitud: number;
+    imagesUrl: String[];
     description: string;
     status: string;
     whatsapp: number;
@@ -35,6 +37,7 @@ export declare class Partners {
     address: string;
     categoryId: string;
     companyId: string;
+    expire: Date;
 }
 export declare const PartnersSchema: mongoose.Schema<Partners, mongoose.Model<Partners, any, any, any, mongoose.Document<unknown, any, Partners> & Partners & {
     _id: mongoose.Types.ObjectId;

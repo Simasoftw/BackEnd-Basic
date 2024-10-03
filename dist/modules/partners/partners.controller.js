@@ -16,21 +16,35 @@ exports.PartnerController = void 0;
 const common_1 = require("@nestjs/common");
 const partners_service_1 = require("./partners.service");
 const partners_dto_1 = require("./dtos/partners.dto");
+const auth_guard_1 = require("../../shared/guards/auth.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 let PartnerController = class PartnerController {
     constructor(_partnersService) {
         this._partnersService = _partnersService;
     }
-    async createPartner(categoriDTO) {
-        return await this._partnersService.createPartner(categoriDTO);
+    async createPlace(partnerDTO, files) {
+        partnerDTO.images = files;
+        try {
+            const response = await this._partnersService.createPartner(partnerDTO);
+            return response;
+        }
+        catch (error) {
+            console.error('Error al crear el lugar:', error.message);
+            return {
+                data: [],
+                message: 'Error al crear el lugar.',
+                status: 500,
+            };
+        }
     }
-    async updateCompany(categoriDTO, IdPartner) {
-        return await this._partnersService.update(categoriDTO, IdPartner);
+    async updateCompany(partnerDTO, IdPartner) {
+        return await this._partnersService.update(partnerDTO, IdPartner);
     }
     async deleteCompany(IdPartner) {
         return await this._partnersService.delete(IdPartner);
     }
-    async findByCompany(categoriDTO) {
-        return await this._partnersService.filterPartnerByCompany(categoriDTO);
+    async findByCompany(partnerDTO) {
+        return await this._partnersService.filterPartnerByCompany(partnerDTO);
     }
     async findById(IdPartner) {
         return await this._partnersService.getPartnerById(IdPartner);
@@ -44,13 +58,17 @@ let PartnerController = class PartnerController {
 };
 exports.PartnerController = PartnerController;
 __decorate([
-    (0, common_1.Post)("/create"),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Post)('/create'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images')),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [partners_dto_1.PartnerDTO]),
+    __metadata("design:paramtypes", [partners_dto_1.PartnerDTO, Array]),
     __metadata("design:returntype", Promise)
-], PartnerController.prototype, "createPartner", null);
+], PartnerController.prototype, "createPlace", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Post)("/update/:IdPartner"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)('IdPartner')),
@@ -59,6 +77,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PartnerController.prototype, "updateCompany", null);
 __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Post)("/delete/:IdPartner"),
     __param(0, (0, common_1.Param)('IdPartner')),
     __metadata("design:type", Function),

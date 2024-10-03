@@ -56,4 +56,8 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "categoryId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], PartnerDTO.prototype, "images", void 0);
 //# sourceMappingURL=partners.dto.js.map

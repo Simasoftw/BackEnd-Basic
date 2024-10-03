@@ -1,5 +1,5 @@
-import { Prop } from "@nestjs/mongoose";
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { Prop, raw } from "@nestjs/mongoose";
+import { IsEmail, IsNotEmpty, IsOptional } from "class-validator";
 
 export class PartnerDTO {
  
@@ -33,4 +33,7 @@ export class PartnerDTO {
 
     @Prop({ required: true })
     categoryId: string;
+
+    @IsOptional()
+    images: any[];
 }

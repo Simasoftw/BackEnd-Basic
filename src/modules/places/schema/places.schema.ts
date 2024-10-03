@@ -19,40 +19,40 @@ export class Places {
     @IsNotEmpty()
     name: string;
 
-    @Prop({ type: [String], required: false }) // Cambiamos a un array de cadenas
-    imagesUrl: String[]; // Cambiamos a un array de cadenas para almacenar URLs de imágenes
+    @Prop({ type: [String], required: false })
+    imagesUrl: String[]; 
 
     @Prop({ required: true })
     @IsNotEmpty()
-    longitud: number; // Cambiado de 'longitude' a 'longitud'
+    longitud: number;
 
     @Prop({ required: true })
     @IsNotEmpty()
-    latitud: number; // Cambiado de 'latitude' a 'latitud'
+    latitud: number;
 
     @Prop({ required: false }) 
-    autor?: string; // Agregado como opcional
+    autor?: string;
 
     @Prop({required: false }) 
-    openingDate?: string; // Agregado como opcional
+    openingDate?: string; 
 
     @Prop({ required: false }) 
-    dedication?: string; // Agregado como opcional
+    dedication?: string; 
 
     @Prop({ required: false }) 
-    reference: string; // Agregado como opcional
+    reference: string; 
 
     @Prop({ required: false }) 
-    referencePhoto: string; // Agregado como opcional
+    referencePhoto: string; 
 
     @Prop({ required: false }) 
-    mainTypology?: string; // Agregado como opcional
+    mainTypology?: string; 
 
     @Prop({ required: false }) 
-    secondaryTypology?: string; // Agregado como opcional
+    secondaryTypology?: string; 
 
     @Prop({ required: false }) 
-    advocacy: string; // Agregado como opcional
+    advocacy: string; 
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'companies', required: true })
     companyId: string;

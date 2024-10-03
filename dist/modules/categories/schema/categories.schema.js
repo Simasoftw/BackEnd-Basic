@@ -42,6 +42,18 @@ __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'companis', required: true }),
     __metadata("design:type", String)
 ], Categories.prototype, "companyId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        default: Date.now,
+        index: {
+            expireAfterSeconds: 259200,
+            partialFilterExpression: {
+                status: 'INACTIVE'
+            }
+        }
+    }),
+    __metadata("design:type", Date)
+], Categories.prototype, "expire", void 0);
 exports.Categories = Categories = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: {
