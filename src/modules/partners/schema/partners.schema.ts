@@ -19,6 +19,7 @@ export class Partners {
     @IsNotEmpty()
     longitud: number;
 
+
     @Prop({ required: false })
     @IsNotEmpty()
     latitud: number;
@@ -38,6 +39,9 @@ export class Partners {
 
     @Prop({ required: false })
     phone: number;
+
+    @Prop({ required: false })
+    email: number;
 
     @Prop({ required: false })
     link: string;

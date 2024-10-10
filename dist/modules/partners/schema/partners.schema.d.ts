@@ -26,13 +26,14 @@ import mongoose from "mongoose";
 export type PartnersDocument = Partners & Document;
 export declare class Partners {
     name: string;
-    longitud: number;
+    ç: number;
     latitud: number;
     imagesUrl: String[];
     description: string;
     status: string;
     whatsapp: number;
     phone: number;
+    email: number;
     link: string;
     address: string;
     categoryId: string;

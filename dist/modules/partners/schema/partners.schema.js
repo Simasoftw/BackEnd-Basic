@@ -25,7 +25,7 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], Partners.prototype, "longitud", void 0);
+], Partners.prototype, "\u00E7", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     (0, class_validator_1.IsNotEmpty)(),
@@ -52,6 +52,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Number)
 ], Partners.prototype, "phone", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], Partners.prototype, "email", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)

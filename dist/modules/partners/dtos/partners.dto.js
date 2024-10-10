@@ -16,7 +16,8 @@ class PartnerDTO {
 }
 exports.PartnerDTO = PartnerDTO;
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: true, }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "name", void 0);
 __decorate([
@@ -24,39 +25,63 @@ __decorate([
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "image", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false, default: 0 }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], PartnerDTO.prototype, "longitud", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false, default: 0 }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], PartnerDTO.prototype, "latitud", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: false, default: "ACTIVE" }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "companyId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: false, default: 0 }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], PartnerDTO.prototype, "whatsapp", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: false, default: 0 }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], PartnerDTO.prototype, "phone", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "link", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "address", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false, default: '' }),
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PartnerDTO.prototype, "email", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], PartnerDTO.prototype, "categoryId", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: false, default: [] }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], PartnerDTO.prototype, "images", void 0);
